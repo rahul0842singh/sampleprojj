@@ -13,12 +13,21 @@ app.use(bodyparser.urlencoded({ extended: true }))
 
 
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "Kashmir@4india",
-  database: "payroll",
-})
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Kashmir@4india",
+    database: "attendance"
+});
+
+db.connect(function (error) {
+    if (error) {
+        console.error('Error connecting to database: ' + error.stack);
+        return;
+    }
+    console.log('Connected to database with ID ' + db.threadId);
+});
+
 
 //register user
 app.post('/userregister', (req, res) => {
